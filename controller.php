@@ -8,10 +8,10 @@ class MultisitePackage extends Package {
 	protected $pkgHandle = 'multisite';
 
 	protected $appVersionRequired = '5.4.0.0';
-	protected $pkgVersion = '1.0';
+	protected $pkgVersion = '0.9';
 
 	public function on_start() {
-		Events::extend('on_start',
+		Events::extend('on_before_render',
 			'Router',
 			'filter',
 			'packages/'.$this->pkgHandle.'/models/router.php'
