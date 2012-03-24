@@ -29,6 +29,7 @@ class FieldHelper {
 		$form = Loader::helper('form');
 		$dtt = Loader::helper('form/date_time');
 		$al = Loader::helper('concrete/asset_library');
+		$ps = Loader::helper('form/page_selector');
 		
 		switch ($field['type']) {
 			case 'text':
@@ -67,7 +68,7 @@ class FieldHelper {
 				';
 				break;
 			case 'page':
-				Loader::element('page_options', array('key' => $key, 'data' => $data));
+				$html .= $ps->selectPage($key, $data[$key]);
 				break;
 			case 'wysiwyg':
 				Loader::element('editor_controls', array('mode'=>'full'));

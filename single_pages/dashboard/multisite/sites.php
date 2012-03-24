@@ -1,6 +1,6 @@
 <?php 
 	$form = Loader::helper('form');
-	$ps = Loader::helper('form/page_selector');
+	$fh = Loader::helper('field', 'multisite');
 ?>
 <style type="text/css" media="screen">
 	.form-label { width: 130px; }
@@ -41,29 +41,19 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td class="form-label">Website URL</td>
-							<td>
-								<?php echo $form->text('url', $data['url']) ?>
-							</td>
-						</tr>
-						<tr>
-							<td class="form-label">
-								Home Page Title
-							</td>
-							<td>
-								<?php echo $form->text('title', $data['title']) ?>
-								<small>We will create a barebones homepage under the /sites directory for this site that you can edit. You can change this later.</small>
-							</td>
-						</tr>
-						<tr>
-							<td class="form-label">
-								Home Page Type
-							</td>
-							<td>
-								<?php echo $form->select('page_type', $pageTypes) ?>
-							</td>
-						</tr>
+						<?php foreach ($fields as $key => $field): ?>
+							<tr>
+								<td class="form-label">
+									<?php echo $field['label'] ?>
+									<?php if ($field['required']): ?>
+										<span class="req">*</span>
+									<?php endif; ?>
+								</td>
+								<td>
+									<?php echo $fh->output($key, $field, $data) ?>
+								</td>
+							</tr>
+						<?php endforeach; ?>
 						<tr>
 							<td colspan="2">
 								<?php echo $form->submit('submit', 'Save Website', array('class' => 'btn primary')) ?>
