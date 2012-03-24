@@ -36,9 +36,9 @@ class Router {
 				$path = $path[0]; // don't include and URL parameters here
 				$page = Page::getByPath($path);
 
-				if ($page) {
+				if ($page->getCollectionID()) {
 					$c = $page; // assign the global $c
-					
+
 					$cpp = new Permissions($c);
 					if ($cpp->isError() && $cpp->getError() == COLLECTION_FORBIDDEN) {
 						// Do some forbidden stuff
