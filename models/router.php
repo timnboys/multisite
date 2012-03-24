@@ -41,6 +41,11 @@ class Router {
 				else {
 					$request_path = $homePage->getCollectionPath().$request_path;
 					$c = Page::getByPath($request_path);
+					if (!$c->getCollectionID()) {
+						// force a 404
+						header('HTTP/1.0 404 Not Found');
+						$c = Page::getByPath('/page_not_found');
+					}
 					self::renderPage($c);
 				}
 			}			
@@ -55,24 +60,17 @@ class Router {
 		$_SESSION['routing'] = true;
 		
 		$perm = new Permissions($page);
-		if ($perm->isError()) {
-			if ($perm->getError() == COLLECTION_FORBIDDEN) {
-				// User is not authorized for this page
-				$v = View::getInstance();
-				$v->setCollectionObject($page);
-				$v->render('/login');
-				exit;	
-			}
+		if (!$perm->isError()) {
+			// Set the current page in the request object
+			Request::get()->setCurrentPage($page);
+
+			// Render the view
+			$view = View::getInstance();
+			$view->setCollectionObject($page);
+			$view->render($page);
+			exit;			
 		}
 		
-		// Set the current page in the request object
-		Request::get()->setCurrentPage($page);
-
-		// Render the view
-		$view = View::getInstance();
-		$view->setCollectionObject($page);
-		$view->render($page);
-		exit;
 	}
 	
 }
