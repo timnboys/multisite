@@ -25,7 +25,7 @@
 					<a id="openForm" href="#" class="btn primary">Add New Site</a>
 				</div>
 			<?php endif ?>
-			<form id="newSite" action="<?php echo $this->action('save') ?>" method="post">
+			<form id="newSite" action="<?php echo $this->action('saveData') ?>" method="post">
 				<table class="zebra-striped">
 					<thead>
 						<tr>

@@ -24,7 +24,7 @@ class DashboardMultisiteSitesController extends Controller {
 		$this->set('pageTypes', $pageTypes);
 	}
 	
-	public function save() {
+	public function saveData() {
 		Loader::model('site', 'multisite');
 		$site = new Site();
 		$site->create($_POST);
