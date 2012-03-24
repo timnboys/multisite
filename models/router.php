@@ -20,8 +20,7 @@ class Router {
 		$pattern = '/(\\/sites\/'.$hostname.')(.*)/';
 		$match = preg_match($pattern, $_SERVER['REQUEST_URI'], $matches);
 		// var_dump($request_path);
-		if($hostname != MAIN_URL && !$request_path) {
-			
+		if(!$request_path) {
 			$db = Loader::db();
 			
 			Loader::model('site', 'multisite');
@@ -29,14 +28,16 @@ class Router {
 			$site->load('url LIKE ?', '%'.$hostname.'%');
 
 			$homeId = $site->home_id;
-		
+
 			if(is_numeric($homeId)) {
 				$home = Page::getByID($homeId);
 		
 				// append the child page path (if none, REQUEST_URI returns '/')
-				$path = $home->getCollectionPath().$_SERVER['REQUEST_URI'];
+				$path = explode('?', $home->getCollectionPath().$_SERVER['REQUEST_URI']);
+				$path = $path[0]; // don't include and URL parameters here
 				$page = Page::getByPath($path);
-		
+				
+
 				if ($page) {
 					$c = $page; // assign the global $c
 					
@@ -52,7 +53,7 @@ class Router {
 					// Set the current page
 					$req = Request::get();
 					$req->setCurrentPage($c);
-		
+
 					// Render the view
 					$v = View::getInstance();
 					$v->setCollectionObject($c);
