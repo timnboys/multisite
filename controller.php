@@ -11,12 +11,14 @@ class MultisitePackage extends Package {
 	protected $pkgVersion = '0.9';
 
 	public function on_start() {
-		Events::extend('on_before_render',
-			'Router',
-			'filter',
-			'packages/'.$this->pkgHandle.'/models/router.php'
-		);
-		Loader::helper('route', 'multisite');
+		if (!User::isLoggedIn() ) {
+			Loader::helper('route', 'multisite');
+			Events::extend('on_before_render',
+				'Router',
+				'render',
+				'packages/'.$this->pkgHandle.'/models/router.php'
+			);
+		}
 	}
 
 	public function install() {

@@ -27,9 +27,11 @@ class RouteHelper {
 	}
 	
 	public static function getHost() {
-		return strtolower(str_replace('www.', '', $_SERVER['HTTP_HOST']));
+		return self::sanitizeUrl($_SERVER['HTTP_HOST']);
+	}
+	
+	public static function sanitizeUrl($url) {
+		return strtolower(str_replace('www.', '', $url));
 	}
 	
 }
-
-?>

@@ -10,60 +10,68 @@ class Router {
 		
 		Look at the URL, see if it's entered as a site,
 		then route and rewrite the URL accordingly.
-	*/
-	public static function filter() {
-		global $c;
-		$request_path = $c->getCollectionPath();
-		$hostname = RouteHelper::getHost();
 		
-		$pattern = '/(\\/sites\/'.$hostname.')(.*)/';
-		$match = preg_match($pattern, $_SERVER['REQUEST_URI'], $matches);
-		// var_dump($request_path);
-		if(!$request_path) {
-			$db = Loader::db();
-			
+		Here's the flow:
+		Because this gets run before the rendering, it actually can get called twice.
+		This needs to be fixed.
+		Request comes in to home page, request_path is null
+		Request 
+	*/
+
+	public static function render() {
+		if (!isset($_SESSION['routing'])) {
+			global $c;
+
 			Loader::model('site', 'multisite');
 			$site = new Site();
-			$site->load('url LIKE ?', '%'.$hostname.'%');
 
-			$homeId = $site->home_id;
+			$hostname = RouteHelper::getHost();
 
-			if(is_numeric($homeId)) {
-				$home = Page::getByID($homeId);
-		
-				// append the child page path (if none, REQUEST_URI returns '/')
-				$path = explode('?', $home->getCollectionPath().$_SERVER['REQUEST_URI']);
-				$path = $path[0]; // don't include and URL parameters here
-				$page = Page::getByPath($path);
+			$request_path = ($c) ? $c->getCollectionPath() : '';
 
-				if ($page->getCollectionID()) {
-					$c = $page; // assign the global $c
+			// Only filter URLs that exist as sites
+			if ($site->exists($hostname)) {
+				$site->load('url LIKE ?', '%'.$hostname.'%');
+				$homePage = Page::getByID($site->home_id);
 
-					$cpp = new Permissions($c);
-					if ($cpp->isError() && $cpp->getError() == COLLECTION_FORBIDDEN) {
-						// Do some forbidden stuff
-						$v = View::getInstance();
-						$v->setCollectionObject($c);
-						$v->render('/login');
-						exit;
-					}
-		
-					// Set the current page
-					$req = Request::get();
-					$req->setCurrentPage($c);
-
-					// Render the view
-					$v = View::getInstance();
-					$v->setCollectionObject($c);
-					$v->render($c);
-					exit;
+				if (!$request_path) {
+					$c = $homePage;
 				}
+				else {
+					$request_path = $homePage->getCollectionPath().$request_path;
+					$c = Page::getByPath($request_path);
+				}
+				self::renderPage($c);
+			}			
+		}
+		else {
+			unset($_SESSION['routing']);
+		}
+	}
+	
+	private function renderPage($page) {
+		$_SESSION['routing'] = true;
+		
+		$perm = new Permissions($c);
+		if ($perm->isError()) {
+			if ($perm->getError() == COLLECTION_FORBIDDEN) {
+				// User is not authorized for this page
+				$v = View::getInstance();
+				$v->setCollectionObject($page);
+				$v->render('/login');
+				exit;	
 			}
 		}
-		elseif ($match) {
-			$url = RouteHelper::getUrl($_SERVER['REQUEST_URI']);
-			header('Location: http://'.$hostname.$url);
-		}
+		
+		// Set the current page
+		$req = Request::get();
+		$req->setCurrentPage($page);
+
+		// Render the view
+		$v = View::getInstance();
+		$v->setCollectionObject($page);
+		$v->render($page);
+		exit;
 	}
 	
 }

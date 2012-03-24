@@ -6,14 +6,23 @@ Loader::library('pavement/model', 'multisite');
 class Site extends PavementModel {
 	
 	public function create($data) {
-		$page = $this->createPage('/sites', $data['page_type'], $data['title'], $data['title']);
 		$url = str_replace(array('http://','https://', 'www.'), '', $data['url']);
+		$page = $this->createPage('/sites', $data['page_type'], $data['title'], $url);
 		if (is_object($page)) {
 			$this->save(array(
 				'url' => $url,
 				'home_id' => $page->getCollectionID()
 			));	
 		}
+	}
+	
+	public function exists($url) {
+		$url = RouteHelper::sanitizeUrl($url);
+		$sites = array();
+		foreach ($this->all() as $site) {
+			$sites[] = $site->url;
+		}
+		return in_array($url, $sites);
 	}
 	
 	private function createPage($path, $pageType, $name, $handle) {
