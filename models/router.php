@@ -6,16 +6,10 @@ class Router {
 	/* 
 		Basic URL based routing and rewriting.
 		This function gets called at the beginning of every
-		request (during the on_start callback).
+		request (during the on_before_render callback).
 		
 		Look at the URL, see if it's entered as a site,
 		then route and rewrite the URL accordingly.
-		
-		Here's the flow:
-		Because this gets run before the rendering, it actually can get called twice.
-		This needs to be fixed.
-		Request comes in to home page, request_path is null
-		Request 
 	*/
 
 	public static function render() {
@@ -35,13 +29,19 @@ class Router {
 				$homePage = Page::getByID($site->home_id);
 
 				if (!$request_path) {
-					$c = $homePage;
+					// Need a little logic to make sure we don't render 404s
+					$path = explode('?', $homePage->getCollectionPath().$_SERVER['REQUEST_URI']);
+					$path = $path[0]; // don't include any URL parameters here
+					if ($path == $homePage->getCollectionPath().'/') {
+						$c = $homePage;	
+						self::renderPage($c);
+					}
 				}
 				else {
 					$request_path = $homePage->getCollectionPath().$request_path;
 					$c = Page::getByPath($request_path);
+					self::renderPage($c);
 				}
-				self::renderPage($c);
 			}			
 		}
 		else {
@@ -52,7 +52,7 @@ class Router {
 	private function renderPage($page) {
 		$_SESSION['routing'] = true;
 		
-		$perm = new Permissions($c);
+		$perm = new Permissions($page);
 		if ($perm->isError()) {
 			if ($perm->getError() == COLLECTION_FORBIDDEN) {
 				// User is not authorized for this page
@@ -63,14 +63,13 @@ class Router {
 			}
 		}
 		
-		// Set the current page
-		$req = Request::get();
-		$req->setCurrentPage($page);
+		// Set the current page in the request object
+		Request::get()->setCurrentPage($page);
 
 		// Render the view
-		$v = View::getInstance();
-		$v->setCollectionObject($page);
-		$v->render($page);
+		$view = View::getInstance();
+		$view->setCollectionObject($page);
+		$view->render($page);
 		exit;
 	}
 	
