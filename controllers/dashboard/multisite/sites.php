@@ -5,7 +5,7 @@ class DashboardMultisiteSitesController extends Controller {
 	public function view() {
 		$this->getPageTypes();
 		$this->getSites();
-		
+
 		$this->set('prettyUrls', URL_REWRITING);
 	}
 	
