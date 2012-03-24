@@ -27,10 +27,6 @@ class MultisitePackage extends Package {
 		$main = SinglePage::add('/dashboard/multisite', $pkg);
 		$mainSites = SinglePage::add('/dashboard/multisite/sites', $pkg);
 		
-		// don't pass $pkg here, you wouldn't want this page (and its children) to get deleted upon uninstall
-		$sitesController = SinglePage::add('/sites');
-		$sitesController->setAttribute('exclude_nav', 1);
-		
 		self::runSql('install');
 	}
 	
