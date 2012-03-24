@@ -16,6 +16,7 @@ class MultisitePackage extends Package {
 			'filter',
 			'packages/'.$this->pkgHandle.'/models/router.php'
 		);
+		Loader::helper('route', 'multisite');
 	}
 
 	public function install() {

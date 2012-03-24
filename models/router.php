@@ -13,9 +13,8 @@ class Router {
 	*/
 	public static function filter() {
 		global $c;
-		$route = Loader::helper('route', 'multisite');
 		$request_path = $c->getCollectionPath();
-		$hostname = $route->getHost();
+		$hostname = RouteHelper::getHost();
 		
 		$pattern = '/(\\/sites\/'.$hostname.')(.*)/';
 		$match = preg_match($pattern, $_SERVER['REQUEST_URI'], $matches);
@@ -36,7 +35,6 @@ class Router {
 				$path = explode('?', $home->getCollectionPath().$_SERVER['REQUEST_URI']);
 				$path = $path[0]; // don't include and URL parameters here
 				$page = Page::getByPath($path);
-				
 
 				if ($page) {
 					$c = $page; // assign the global $c
@@ -63,7 +61,7 @@ class Router {
 			}
 		}
 		elseif ($match) {
-			$url = $route->getUrl($_SERVER['REQUEST_URI']);
+			$url = RouteHelper::getUrl($_SERVER['REQUEST_URI']);
 			header('Location: http://'.$hostname.$url);
 		}
 	}

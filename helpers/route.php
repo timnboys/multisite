@@ -7,7 +7,7 @@ class RouteHelper {
 		Takes a page object and figures out what URL should be used to
 		access that page.
 	*/
-	public function getUrl($path) {
+	public static function getUrl($path) {
 		$hostname = $this->getHost();
 		$pattern = '/(\/sites\/'.$hostname.')(.*)/';
 		$match = preg_match($pattern, $path, $matches);
@@ -26,7 +26,7 @@ class RouteHelper {
 		return $url;
 	}
 	
-	public function getHost() {
+	public static function getHost() {
 		return strtolower(str_replace('www.', '', $_SERVER['HTTP_HOST']));
 	}
 	
