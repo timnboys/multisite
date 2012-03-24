@@ -33,6 +33,7 @@ class Router {
 					$path = explode('?', $homePage->getCollectionPath().$_SERVER['REQUEST_URI']);
 					$path = $path[0]; // don't include any URL parameters here
 					if ($path == $homePage->getCollectionPath().'/') {
+						// render the home page
 						$c = $homePage;	
 						self::renderPage($c);
 					}
@@ -50,6 +51,7 @@ class Router {
 	}
 	
 	private function renderPage($page) {
+		// set a session variable to prevent infinite rendering
 		$_SESSION['routing'] = true;
 		
 		$perm = new Permissions($page);
