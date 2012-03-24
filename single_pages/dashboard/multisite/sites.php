@@ -15,6 +15,14 @@
 	<?php endif; ?>
 </style>
 <div class="ccm-ui">
+	<?php if (!$prettyUrls): ?>
+		<div class="alert-message block-message error">
+			<strong>Pretty URLs are not enabled.</strong>
+			It is strongly recommended that you enable pretty URLs
+			in order for this module to work correctly! <br />
+			<a href="<?php echo $this->url('/dashboard/system/seo/urls/') ?>">Click here to enable pretty URLs</a>
+		</div>
+	<?php endif; ?>
 	<div class="ccm-pane">
 		<div class="ccm-pane-header">
 			<h3>Manage Websites</h3>

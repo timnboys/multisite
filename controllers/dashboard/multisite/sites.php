@@ -2,9 +2,11 @@
 defined('C5_EXECUTE') or die(_("Access Denied."));
 class DashboardMultisiteSitesController extends Controller {
 	
-	public function on_start() {
+	public function view() {
 		$this->getPageTypes();
 		$this->getSites();
+		
+		$this->set('prettyUrls', URL_REWRITING);
 	}
 	
 	private function getSites() {
