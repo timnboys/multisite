@@ -24,13 +24,28 @@ class MultisitePackage extends Package {
 		$main = SinglePage::add('/dashboard/multisite', $pkg);
 		$mainSites = SinglePage::add('/dashboard/multisite/sites', $pkg);
 		$sitesController = SinglePage::add('/sites', $pkg);
+		$sitesController->setAttribute('exclude_nav', 1);
+		self::runSql('install');
+	}
+	
+	private function runSql($file) {
+		$path = getcwd().'/packages/'.$this->pkgHandle.'/sql/'.$file.'.sql';
+		$sql = file_get_contents($path);
+		$db = Loader::db();
+		foreach (explode(";\n", $sql) as $line) {
+			if ($line) {
+				$db->execute($line);
+			}
+		}
 	}
 	
 	public function upgrade(){
+		self::runSql('upgrade');
 		return parent::upgrade();
 	}
 	
 	public function uninstall() {
+		self::runSql('uninstall');
 		parent::uninstall();
 	}
 
