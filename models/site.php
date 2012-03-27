@@ -5,6 +5,8 @@ Loader::library('pavement/model', 'multisite');
 
 class Site extends PavementModel {
 	
+	var $errors = array();
+	
 	public function getFields() {
 		return array(
 			'url' => array(
@@ -26,15 +28,47 @@ class Site extends PavementModel {
 	}
 	
 	public function create($data) {
-		$url = str_replace(array('http://','https://', 'www.'), '', $data['url']);
-		// $page = $this->createPage('/sites', $data['page_type'], $data['title'], $url);
-		if (is_object($page)) {
+		// d($data);
+		if ($this->validate($data)) {
+			$url = str_replace(array('http://','https://', 'www.'), '', $data['url']);
 			$this->save(array(
 				'url' => $url,
 				'home_id' => $data['home_id'],
 				'favicon' => $data['favicon']
 			));	
+			return true;
 		}
+		else {
+			return false;
+		}
+	}
+	
+	private function validate($data) {
+		$val = Loader::helper('validation/form');
+		
+		foreach ($this->getFields() as $key => $field) {
+			if ($field['type'] == 'page' && $data[$key] == 0) {
+				$data[$key] = null;
+			}
+			if ($field['required']) {
+				$val->addRequired($key, $field['label'].' is required.');
+			}
+		}
+		
+		$val->setData($data);
+		$test = $val->test();
+		
+		if ($data['url']) {
+			if ($this->exists($data['url'])) {
+				$this->errors[] = 'A site with that URL already exists.';
+			}
+		}
+
+		if (!$test) {
+			$this->errors = array_merge($this->errors, $val->getError()->getList());
+		}
+
+		return $val->test();
 	}
 	
 	public function exists($url) {

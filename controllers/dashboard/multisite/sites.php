@@ -24,8 +24,13 @@ class DashboardMultisiteSitesController extends Controller {
 	
 	public function saveData() {
 		$site = new Site();
-		$site->create($_POST);
-		$this->redirect('/dashboard/multisite/sites');
+		if ($site->create($_POST)) {
+			$this->redirect('/dashboard/multisite/sites');	
+		}
+		else {
+			$this->set('errors', $site->errors);
+			$this->view();
+		}
 	}
 	
 	public function delete($id) {
