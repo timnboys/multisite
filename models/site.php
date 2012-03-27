@@ -28,7 +28,6 @@ class Site extends PavementModel {
 	}
 	
 	public function create($data) {
-		// d($data);
 		if ($this->validate($data)) {
 			$url = str_replace(array('http://','https://', 'www.'), '', $data['url']);
 

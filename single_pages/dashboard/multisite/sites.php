@@ -68,8 +68,10 @@
 						<tr>
 							<td colspan="2">
 								<?php echo $form->submit('submit', 'Save Website', array('class' => 'btn primary')) ?>
-								<?php if (!empty($sites)): ?>
-									<a id="closeForm" href="#" class="btn">Cancel</a>									
+								<?php if (!$data && !empty($sites)): ?>
+									<a id="closeForm" href="#" class="btn">Cancel</a>	
+								<?php elseif ($data): ?>
+									<a href="<?php echo $this->url('/dashboard/multisite/sites') ?>" class="btn">Cancel</a>
 								<?php endif ?>
 							</td>
 						</tr>
@@ -79,7 +81,7 @@
 					<?php echo $form->hidden('id', $data['id']) ?>
 				<?php endif; ?>
 			</form>
-			<?php if (!empty($sites)): ?>
+			<?php if (!empty($sites) && !$data): ?>
 				<table class="zebra-striped">
 					<thead>
 						<tr>
@@ -96,7 +98,7 @@
 								<td>
 									<a href="<?php echo $site->getPage()->getCollectionPath() ?>" class="btn">Visit</a>
 									<a href="<?php echo $this->url('/dashboard/multisite/sites/edit', $site->id) ?>" class="btn">Edit Settings</a>
-									<a href="<?php echo $this->action('delete', $site->id) ?>" class="btn danger">Delete</a>
+									<a href="<?php echo $this->action('delete', $site->id) ?>" class="btn danger" onclick="return deleteConfirm()">Delete</a>
 								</td>
 							</tr>
 						<?php endforeach; ?>
@@ -128,5 +130,9 @@
 			formOpen = false;
 		}
 		$('#newSite').slideToggle();
+	}
+	
+	function deleteConfirm() {
+		return confirm('Are you sure you want to delete this site?');
 	}
 </script>
