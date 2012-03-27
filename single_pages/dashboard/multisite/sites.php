@@ -1,7 +1,7 @@
 <?php 
 	$form = Loader::helper('form');
 	$fh = Loader::helper('field', 'multisite');
-	$showForm = (empty($sites) || !empty($errors));
+	$showForm = (empty($sites) || !empty($errors) || $data);
 ?>
 <style type="text/css" media="screen">
 	.form-label { width: 130px; }
@@ -75,6 +75,9 @@
 						</tr>
 					</tbody>
 				</table>
+				<?php if ($data): ?>
+					<?php echo $form->hidden('id', $data['id']) ?>
+				<?php endif; ?>
 			</form>
 			<?php if (!empty($sites)): ?>
 				<table class="zebra-striped">

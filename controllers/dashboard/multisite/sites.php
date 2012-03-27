@@ -12,6 +12,13 @@ class DashboardMultisiteSitesController extends Controller {
 		$this->set('prettyUrls', URL_REWRITING);
 	}
 	
+	public function edit($id) {
+		$site = new Site();
+		$site->loadById($id);
+		$this->set('data', (array) $site);
+		$this->view();
+	}
+	
 	private function getFields() {
 		$site = new Site();
 		$this->set('fields', $site->getFields());

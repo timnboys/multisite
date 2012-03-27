@@ -31,6 +31,11 @@ class Site extends PavementModel {
 		// d($data);
 		if ($this->validate($data)) {
 			$url = str_replace(array('http://','https://', 'www.'), '', $data['url']);
+
+			if ($data['id']) {
+				$this->loadById($data['id']);
+			}
+
 			$this->save(array(
 				'url' => $url,
 				'home_id' => $data['home_id'],
