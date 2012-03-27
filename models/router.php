@@ -35,7 +35,7 @@ class Router {
 					if ($path == $homePage->getCollectionPath().'/') {
 						// render the home page
 						$c = $homePage;	
-						self::renderPage($c);
+						self::renderPage($c, $site);
 					}
 				}
 				else {
@@ -46,7 +46,7 @@ class Router {
 						header('HTTP/1.0 404 Not Found');
 						$c = Page::getByPath('/page_not_found');
 					}
-					self::renderPage($c);
+					self::renderPage($c, $site);
 				}
 			}			
 		}
@@ -55,7 +55,7 @@ class Router {
 		}
 	}
 	
-	private function renderPage($page) {
+	private function renderPage($page, $site) {
 		// set a session variable to prevent infinite rendering
 		$_SESSION['routing'] = true;
 		
@@ -67,6 +67,13 @@ class Router {
 			// Render the view
 			$view = View::getInstance();
 			$view->setCollectionObject($page);
+			
+			if ($site->favicon) {
+				$favicon = File::getByID($site->favicon);
+				$view->addHeaderItem('<link rel="icon" href="'.$favicon->getRelativePath().'" type="image/x-icon" />');
+				$view->addHeaderItem('<link rel="shortcut icon" href="'.$favicon->getRelativePath().'" type="image/x-icon" />');
+			}
+			
 			$view->render($page);
 			exit;			
 		}
