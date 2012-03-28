@@ -18,15 +18,14 @@
 <div class="ccm-ui">
 	<?php if (!$prettyUrls): ?>
 		<div class="alert-message block-message error">
-			<strong>Pretty URLs are not enabled.</strong>
-			It is strongly recommended that you enable pretty URLs
-			in order for this module to work correctly! <br />
-			<a href="<?php echo $this->url('/dashboard/system/seo/urls/') ?>">Click here to enable pretty URLs</a>
+			<strong><?php echo t('Pretty URLs are not enabled.') ?></strong>
+			<?php echo t('It is strongly recommended that you enable pretty URLs in order for this module to work correctly!') ?><br />
+			<a href="<?php echo $this->url('/dashboard/system/seo/urls/') ?>"><?php echo t('Click here to enable pretty URLs') ?></a>
 		</div>
 	<?php endif; ?>
 	<?php if ($errors): ?>
 		<div class="alert-message block-message error">
-			<strong>There were some problems saving the site.</strong>
+			<strong><?php echo t('There were some problems saving the site.') ?></strong>
 			<ul style="margin-top: 5px;">
 				<?php foreach ($errors as $e): ?>
 					<li><?php echo $e ?></li>
@@ -36,19 +35,19 @@
 	<?php endif; ?>
 	<div class="ccm-pane">
 		<div class="ccm-pane-header">
-			<h3>Manage Websites</h3>
+			<h3><?php echo t('Manage Websites') ?></h3>
 		</div>
 		<div class="ccm-pane-body ccm-pane-body-footer">
 			<?php if (!$showForm): ?>
 				<div style="margin-bottom: 10px; text-align: right;">
-					<a id="openForm" href="#" class="btn primary">Add New Site</a>
+					<a id="openForm" href="#" class="btn primary"><?php echo t('Add New Site') ?></a>
 				</div>
 			<?php endif ?>
 			<form id="newSite" action="<?php echo $this->action('saveData') ?>" method="post">
 				<table class="zebra-striped">
 					<thead>
 						<tr>
-							<th colspan="2">Add New Site</th>
+							<th colspan="2"><?php echo t('Add New Site') ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -69,9 +68,9 @@
 							<td colspan="2">
 								<?php echo $form->submit('submit', 'Save Website', array('class' => 'btn primary')) ?>
 								<?php if (!$data && !empty($sites)): ?>
-									<a id="closeForm" href="#" class="btn">Cancel</a>	
+									<a id="closeForm" href="#" class="btn"><?php echo t('Cancel') ?></a>	
 								<?php elseif ($data): ?>
-									<a href="<?php echo $this->url('/dashboard/multisite/sites') ?>" class="btn">Cancel</a>
+									<a href="<?php echo $this->url('/dashboard/multisite/sites') ?>" class="btn"><?php echo t('Cancel') ?></a>
 								<?php endif ?>
 							</td>
 						</tr>
@@ -85,9 +84,9 @@
 				<table class="zebra-striped">
 					<thead>
 						<tr>
-							<th>Home Page</th>						
-							<th>URL</th>
-							<th width="250">Actions</th>
+							<th><?php echo t('Home Page') ?></th>						
+							<th><?php echo t('URL') ?></th>
+							<th width="250"><?php echo t('Actions') ?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -96,9 +95,9 @@
 								<td><?php echo $site->getPage()->getCollectionName() ?></td>
 								<td><?php echo $site->url ?></td>
 								<td>
-									<a href="<?php echo $site->getPage()->getCollectionPath() ?>" class="btn">Visit</a>
-									<a href="<?php echo $this->url('/dashboard/multisite/sites/edit', $site->id) ?>" class="btn">Edit Settings</a>
-									<a href="<?php echo $this->action('delete', $site->id) ?>" class="btn danger" onclick="return deleteConfirm()">Delete</a>
+									<a href="<?php echo $site->getPage()->getCollectionPath() ?>" class="btn"><?php echo t('Visit') ?></a>
+									<a href="<?php echo $this->url('/dashboard/multisite/sites/edit', $site->id) ?>" class="btn"><?php echo t('Edit Settings') ?></a>
+									<a href="<?php echo $this->action('delete', $site->id) ?>" class="btn danger" onclick="return deleteConfirm()"><?php echo t('Delete') ?></a>
 								</td>
 							</tr>
 						<?php endforeach; ?>
@@ -133,6 +132,6 @@
 	}
 	
 	function deleteConfirm() {
-		return confirm('Are you sure you want to delete this site?');
+		return confirm('<?php echo t("Are you sure you want to delete this site?") ?>');
 	}
 </script>

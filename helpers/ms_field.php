@@ -52,8 +52,8 @@ class MsFieldHelper {
 				break;
 			case 'boolean':
 				$html = $form->select($key, array(
-					'0' => 'No',
-					'1' => 'Yes'
+					'0' => t('No'),
+					'1' => t('Yes')
 				), $value);
 				break;
 			case 'select':
@@ -81,13 +81,13 @@ class MsFieldHelper {
 				if (isset($value)) {
 					$file = File::getByID($value);
 				}
-				$html = $al->image($key, $key, 'Choose image...', $file);
+				$html = $al->image($key, $key, t('Choose image...'), $file);
 				break;
 			case 'file':
 				if (isset($value)) {
 					$file = File::getByID($value);
 				}
-				$html = $al->file($key, $key, 'Choose file...', $file);
+				$html = $al->file($key, $key, t('Choose file...'), $file);
 				break;
 		}
 		return $html;

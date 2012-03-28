@@ -10,17 +10,17 @@ class MultisiteDomain extends PavementModel {
 	public function getFields() {
 		return array(
 			'url' => array(
-				'label' => 'URL',
+				'label' => t('URL'),
 				'type' => 'text',
 				'required' => true
 			),
 			'home_id' => array(
-				'label' => 'Home Page',
+				'label' => t('Home Page'),
 				'type' => 'page',
 				'required' => true
 			),
 			'favicon' => array(
-				'label' => 'Favicon',
+				'label' => t('Favicon'),
 				'type' => 'file',
 				'required' => false
 			)
@@ -55,7 +55,7 @@ class MultisiteDomain extends PavementModel {
 				$data[$key] = null;
 			}
 			if ($field['required']) {
-				$val->addRequired($key, $field['label'].' is required.');
+				$val->addRequired($key, $field['label'].t(' is required.'));
 			}
 		}
 		
@@ -64,7 +64,7 @@ class MultisiteDomain extends PavementModel {
 		
 		if ($data['url']) {
 			if ($this->exists($data['url'])) {
-				$this->errors[] = 'A site with that URL already exists.';
+				$this->errors[] = t('A site with that URL already exists.');
 			}
 		}
 
