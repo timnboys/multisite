@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <schema version="0.3">
-	<table name="Sites">
+	<table name="MultisiteDomains">
 		<field name="id" type="I">
 			<key />
 			<unsigned />

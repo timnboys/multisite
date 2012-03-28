@@ -13,24 +13,24 @@ class DashboardMultisiteSitesController extends Controller {
 	}
 	
 	public function edit($id) {
-		$site = new MsSite();
+		$site = new MultiSiteDomain();
 		$site->loadById($id);
 		$this->set('data', (array) $site);
 		$this->view();
 	}
 	
 	private function getFields() {
-		$site = new MsSite();
+		$site = new MultiSiteDomain();
 		$this->set('fields', $site->getFields());
 	}
 	
 	private function getSites() {
-		$site = new MsSite();
+		$site = new MultiSiteDomain();
 		$this->set('sites', $site->all());
 	}
 	
 	public function saveData() {
-		$site = new MsSite();
+		$site = new MultiSiteDomain();
 		if ($site->create($_POST)) {
 			$this->redirect('/dashboard/multisite/sites');	
 		}
@@ -41,7 +41,7 @@ class DashboardMultisiteSitesController extends Controller {
 	}
 	
 	public function delete($id) {
-		$site = new MsSite();
+		$site = new MultiSiteDomain();
 		$site->loadById($id);
 		$site->delete();
 		$this->redirect('/dashboard/multisite/sites');

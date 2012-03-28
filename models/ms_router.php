@@ -17,7 +17,7 @@ class MsRouter {
 			global $c;
 
 			Loader::model('ms_site', 'multisite');
-			$site = new MsSite();
+			$site = new MultiSiteDomain();
 
 			$hostname = RouteHelper::getHost();
 

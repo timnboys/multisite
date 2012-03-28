@@ -3,8 +3,8 @@
 defined('C5_EXECUTE') or die("Access Denied.");
 Loader::library('pavement/model', 'multisite');
 
-class MsSite extends PavementModel {
-	var $_table = 'Sites';
+class MultisiteDomain extends PavementModel {
+	var $_table = 'MultisiteDomains';
 	var $errors = array();
 	
 	public function getFields() {
