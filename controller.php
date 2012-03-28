@@ -7,8 +7,8 @@ class MultisitePackage extends Package {
 	protected $pkgName = 'Multisite Pro';
 	protected $pkgHandle = 'multisite';
 
-	protected $appVersionRequired = '5.4.0.0';
-	protected $pkgVersion = '0.9';
+	protected $appVersionRequired = '5.5.0.0';
+	protected $pkgVersion = '1.0';
 
 	public function on_start() {
 		Loader::helper('route', 'multisite');
