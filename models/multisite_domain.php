@@ -76,7 +76,7 @@ class MultisiteDomain extends PavementModel {
 	}
 	
 	public function exists($url) {
-		$url = RouteHelper::sanitizeUrl($url);
+		$url = MsRouteHelper::sanitizeUrl($url);
 		$sites = array();
 		foreach ($this->all() as $site) {
 			$sites[] = $site->url;

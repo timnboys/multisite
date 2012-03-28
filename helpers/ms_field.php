@@ -6,7 +6,7 @@ defined('C5_EXECUTE') or die('Access Denied.');
 	This helper will take a field and output the proper field input HTML
 */
 
-class FieldHelper {
+class MsFieldHelper {
 
 	public function output($key, $field, $data = array()) {	
 		if ($field['multi'] && !empty($data[$key])) {

@@ -11,7 +11,7 @@ class MultisitePackage extends Package {
 	protected $pkgVersion = '0.9.1';
 
 	public function on_start() {
-		Loader::helper('route', 'multisite');
+		Loader::helper('ms_route', 'multisite');
 		if (!User::isLoggedIn() ) {
 			Events::extend('on_before_render',
 				'MsRouter',

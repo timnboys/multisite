@@ -1,6 +1,6 @@
 <?php 
 	$form = Loader::helper('form');
-	$fh = Loader::helper('field', 'multisite');
+	$fh = Loader::helper('ms_field', 'multisite');
 	$showForm = (empty($sites) || !empty($errors) || $data);
 ?>
 <style type="text/css" media="screen">

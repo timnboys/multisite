@@ -19,7 +19,7 @@ class MsRouter {
 			Loader::model('ms_site', 'multisite');
 			$site = new MultiSiteDomain();
 
-			$hostname = RouteHelper::getHost();
+			$hostname = MsRouteHelper::getHost();
 
 			$request_path = ($c) ? $c->getCollectionPath() : '';
 

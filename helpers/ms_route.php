@@ -1,7 +1,7 @@
 <?php
 defined('C5_EXECUTE') or die(_("Access Denied."));
 
-class RouteHelper {
+class MsRouteHelper {
 		
 	public static function getHost() {
 		return self::sanitizeUrl($_SERVER['HTTP_HOST']);
