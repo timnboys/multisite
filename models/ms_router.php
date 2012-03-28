@@ -21,14 +21,14 @@ class MsRouter {
 
 			$hostname = MsRouteHelper::getHost();
 
-			$request_path = ($c) ? $c->getCollectionPath() : '';
+			$requestPath = ($c) ? $c->getCollectionPath() : '';
 
 			// Only filter URLs that exist as sites
 			if ($site->exists($hostname)) {
 				$site->load('url LIKE ?', '%'.$hostname.'%');
 				$homePage = Page::getByID($site->home_id);
 
-				if (!$request_path) {
+				if (!$requestPath) {
 					// Need a little logic to make sure we don't render 404s
 					$path = explode('?', $homePage->getCollectionPath().$_SERVER['REQUEST_URI']);
 					$path = $path[0]; // don't include any URL parameters here
@@ -39,8 +39,8 @@ class MsRouter {
 					}
 				}
 				else {
-					$request_path = $homePage->getCollectionPath().$request_path;
-					$c = Page::getByPath($request_path);
+					$requestPath = $homePage->getCollectionPath().$requestPath;
+					$c = Page::getByPath($requestPath);
 					if (!$c->getCollectionID()) {
 						// force a 404
 						header('HTTP/1.0 404 Not Found');
