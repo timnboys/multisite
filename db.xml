@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<schema version="0.3">
+	<table name="Sites">
+		<field name="id" type="I">
+			<key />
+			<unsigned />
+			<autoincrement />
+		</field>
+		<field name="url" type="X2"></field>
+		<field name="home_id" type="I"></field>
+		<field name="favicon" type="I"></field>
+	</table>
+</schema>
