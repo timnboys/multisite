@@ -1,7 +1,7 @@
 <?php 
 defined('C5_EXECUTE') or die("Access Denied.");
 
-class Router {
+class MsRouter {
 	
 	/* 
 		Basic URL based routing and rewriting.
@@ -16,8 +16,8 @@ class Router {
 		if (!isset($_SESSION['routing'])) {
 			global $c;
 
-			Loader::model('site', 'multisite');
-			$site = new Site();
+			Loader::model('ms_site', 'multisite');
+			$site = new MsSite();
 
 			$hostname = RouteHelper::getHost();
 

@@ -14,9 +14,9 @@ class MultisitePackage extends Package {
 		Loader::helper('route', 'multisite');
 		if (!User::isLoggedIn() ) {
 			Events::extend('on_before_render',
-				'Router',
+				'MsRouter',
 				'render',
-				'packages/'.$this->pkgHandle.'/models/router.php'
+				'packages/'.$this->pkgHandle.'/models/ms_router.php'
 			);
 		}
 	}

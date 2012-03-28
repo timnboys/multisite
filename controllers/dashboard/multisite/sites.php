@@ -3,7 +3,7 @@ defined('C5_EXECUTE') or die(_("Access Denied."));
 class DashboardMultisiteSitesController extends Controller {
 	
 	public function on_start() {
-		Loader::model('site', 'multisite');
+		Loader::model('ms_site', 'multisite');
 	}
 	
 	public function view() {
@@ -13,24 +13,24 @@ class DashboardMultisiteSitesController extends Controller {
 	}
 	
 	public function edit($id) {
-		$site = new Site();
+		$site = new MsSite();
 		$site->loadById($id);
 		$this->set('data', (array) $site);
 		$this->view();
 	}
 	
 	private function getFields() {
-		$site = new Site();
+		$site = new MsSite();
 		$this->set('fields', $site->getFields());
 	}
 	
 	private function getSites() {
-		$site = new Site();
+		$site = new MsSite();
 		$this->set('sites', $site->all());
 	}
 	
 	public function saveData() {
-		$site = new Site();
+		$site = new MsSite();
 		if ($site->create($_POST)) {
 			$this->redirect('/dashboard/multisite/sites');	
 		}
@@ -41,7 +41,7 @@ class DashboardMultisiteSitesController extends Controller {
 	}
 	
 	public function delete($id) {
-		$site = new Site();
+		$site = new MsSite();
 		$site->loadById($id);
 		$site->delete();
 		$this->redirect('/dashboard/multisite/sites');
