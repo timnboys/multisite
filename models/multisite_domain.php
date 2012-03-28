@@ -84,15 +84,6 @@ class MultisiteDomain extends PavementModel {
 		return in_array($url, $sites);
 	}
 	
-	private function createPage($path, $pageType, $name, $handle) {
-		$pt = CollectionType::getByHandle($pageType);
-
-		$parent = Page::getByPath($path, $version = 'RECENT');
-		$data = array('cName' => $name, 'cHandle' => $handle);
-		$p = $parent->add($pt, $data);
-		return $p;		
-	}
-	
 	public function getPage() {
 		return Page::getByID($this->home_id);
 	}
