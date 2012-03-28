@@ -55,7 +55,7 @@ class MsRouter {
 		}
 	}
 	
-	private function renderPage($page, $site) {
+	private static function renderPage($page, $site) {
 		// set a session variable to prevent infinite rendering
 		$_SESSION['routing'] = true;
 		
