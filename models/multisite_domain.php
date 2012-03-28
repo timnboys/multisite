@@ -88,4 +88,8 @@ class MultisiteDomain extends PavementModel {
 		return Page::getByID($this->home_id);
 	}
 	
+	public function getUrl() {
+		return 'http://'.$this->url;
+	}
+	
 }

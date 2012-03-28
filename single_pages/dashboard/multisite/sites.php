@@ -92,10 +92,16 @@
 					<tbody>
 						<?php foreach($sites as $site): ?>
 							<tr>
-								<td><?php echo $site->getPage()->getCollectionName() ?></td>
+								<?php $_page = $site->getPage(); ?>
+								<td>
+									<a href="<?php echo $_page->getCollectionPath() ?>">
+										<?php echo $_page->getCollectionName() ?>
+									</a>
+								</td>
 								<td><?php echo $site->url ?></td>
 								<td>
-									<a href="<?php echo $site->getPage()->getCollectionPath() ?>" class="btn"><?php echo t('Visit') ?></a>
+									<!-- <a href="<?php echo $site->getPage()->getCollectionPath() ?>" class="btn"><?php echo t('Visit') ?></a> -->
+									<a href="<?php echo $site->getUrl() ?>" class="btn"><?php echo t('Visit') ?></a>
 									<a href="<?php echo $this->url('/dashboard/multisite/sites/edit', $site->id) ?>" class="btn"><?php echo t('Edit Settings') ?></a>
 									<a href="<?php echo $this->action('delete', $site->id) ?>" class="btn danger" onclick="return deleteConfirm()"><?php echo t('Delete') ?></a>
 								</td>
