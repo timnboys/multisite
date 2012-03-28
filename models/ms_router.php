@@ -16,7 +16,7 @@ class MsRouter {
 		if (!isset($_SESSION['routing'])) {
 			global $c;
 
-			Loader::model('ms_site', 'multisite');
+			Loader::model('multisite_domain', 'multisite');
 			$site = new MultiSiteDomain();
 
 			$hostname = MsRouteHelper::getHost();

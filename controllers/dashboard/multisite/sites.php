@@ -3,7 +3,7 @@ defined('C5_EXECUTE') or die(_("Access Denied."));
 class DashboardMultisiteSitesController extends Controller {
 	
 	public function on_start() {
-		Loader::model('ms_site', 'multisite');
+		Loader::model('multisite_domain', 'multisite');
 	}
 	
 	public function view() {
