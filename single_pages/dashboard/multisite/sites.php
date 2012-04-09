@@ -1,4 +1,5 @@
 <?php 
+	defined('C5_EXECUTE') or die(_("Access Denied."));
 	$form = Loader::helper('form');
 	$fh = Loader::helper('ms_field', 'multisite');
 	$showForm = (empty($sites) || !empty($errors) || $data);
