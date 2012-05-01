@@ -39,14 +39,20 @@ class MsRouter {
 					}
 				}
 				else {
-					$requestPath = $homePage->getCollectionPath().$requestPath;
-					$c = Page::getByPath($requestPath);
-					if (!$c->getCollectionID()) {
-						// force a 404
-						header('HTTP/1.0 404 Not Found');
-						$c = Page::getByPath('/page_not_found');
+					if (strpos($requestPath, $homePage->getCollectionPath()) !== false) {
+						$newPath = str_replace($homePage->getCollectionPath(), '', $requestPath);
+						header('Location: '.$newPath);
 					}
-					self::renderPage($c, $site);
+					else {
+						$requestPath = $homePage->getCollectionPath().$requestPath;					
+						$c = Page::getByPath($requestPath);
+						if (!$c->getCollectionID()) {
+							// force a 404
+							header('HTTP/1.0 404 Not Found');
+							$c = Page::getByPath('/page_not_found');
+						}
+						self::renderPage($c, $site);	
+					}
 				}
 			}			
 		}
