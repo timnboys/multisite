@@ -1,3 +1,9 @@
+<!-- 
+	All code copyright 2012 David Strack.
+	Web: http://dave.li
+	Email: davidstrack@icloud.com
+	Twitter: @rmxdave
+-->
 <?xml version="1.0"?>
 <schema version="0.3">
 	<table name="MultisiteDomains">
