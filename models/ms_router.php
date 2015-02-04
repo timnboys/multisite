@@ -42,6 +42,10 @@ class MsRouter {
 						// render the home page
 						$c = $homePage;	
 						self::renderPage($c, $site);
+					} else {
+						// render the subpages
+						$c = Page::getByPath($path);	
+						self::renderPage($c, $site);
 					}
 				}
 				else {
