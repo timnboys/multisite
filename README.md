@@ -38,10 +38,12 @@ That's it! When it comes down to it, it's a very basic add-on to use, and tries 
 
 ## License
 
-All code is copyright © 2012 David Strack. All rights reserved. 
+MIT License:
 
-You may use this source code as an add-on in any concrete5 website. You may modify this source code. You may reproduce this source code (fork) and publicly distribute, as long as you link back to this original repository and retain this license notice. 
+Copyright (c) 2012 David Strack
 
-You may not sell this source code (modified or otherwise). Only the original developer, David Strack, retains the right to modify this license.
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-If you have any questions about acceptable usage, email me at [davidstrack@icloud.com](mailto:davidstrack@icloud.com).
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
